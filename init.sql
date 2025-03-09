@@ -1,0 +1,5 @@
+CREATE USER app_user WITH PASSWORD 'app_pass';
+
+CREATE DATABASE intershop;
+
+GRANT ALL PRIVILEGES ON DATABASE intershop TO app_user;

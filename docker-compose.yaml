@@ -3,9 +3,9 @@ services:
     image: postgres:14
     container_name: postgres_db
     environment:
-      POSTGRES_USER: your_user
-      POSTGRES_PASSWORD: your_password
-      POSTGRES_DB: your_database
+      POSTGRES_USER: app_user
+      POSTGRES_PASSWORD: app_pass
+      POSTGRES_DB: `intershop`
     ports:
       - "5432:5432"
     volumes:
@@ -20,9 +20,9 @@ services:
       dockerfile: Dockerfile
     container_name: intershop_app
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/your_database
-      SPRING_DATASOURCE_USERNAME: your_user
-      SPRING_DATASOURCE_PASSWORD: your_password
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/intershop
+      SPRING_DATASOURCE_USERNAME: app_user
+      SPRING_DATASOURCE_PASSWORD: app_pass
     ports:
       - "8080:8080"
     depends_on:
