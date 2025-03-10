@@ -1,5 +1,6 @@
-CREATE USER app_user WITH PASSWORD 'app_pass';
-
-CREATE DATABASE intershop;
-
-GRANT ALL PRIVILEGES ON DATABASE intershop TO app_user;
+CREATE TABLE IF NOT EXISTS users
+(
+    id       SERIAL PRIMARY KEY,
+    username VARCHAR(50)  NOT NULL,
+    email    VARCHAR(100) NOT NULL
+);
