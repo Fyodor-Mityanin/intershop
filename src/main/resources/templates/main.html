@@ -76,12 +76,6 @@
                                 <button name="action" value="plus">+</button>
                                 <button name="action" value="plus" th:if="${item.getCount()==0}" style="float:right;">В корзину</button>
                             </form>
-<!--                        <form th:id="form-${item.getId()}" th:action="${'/main/items/'+item.getId()}" method="post">-->
-<!--                            <button type="button" onclick="updateCount('${item.getId()}', 'minus')">-</button>-->
-<!--                            <span th:id="count-${item.getId()}" th:text="${item.getCount()}"></span>-->
-<!--                            <button type="button" onclick="updateCount('${item.getId()}', 'plus')">+</button>-->
-<!--                            <button type="button" th:if="${item.getCount()==0}" onclick="updateCount('${item.getId()}', 'plus')" style="float:right;">В корзину</button>-->
-<!--                        </form>-->
                         </td>
                     </tr>
                 </table>

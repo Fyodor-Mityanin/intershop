@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     Optional<Order> findBySession(String session);
+
+    Optional<Order> findBySessionAndStatus(String session, String status);
 }

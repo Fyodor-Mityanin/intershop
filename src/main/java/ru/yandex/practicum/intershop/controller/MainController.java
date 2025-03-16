@@ -37,15 +37,8 @@ public class MainController {
     }
 
     @PostMapping(value = "/main/items/{itemId}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String addToCart(@PathVariable int itemId, AddToCartRequestDto request, HttpSession session) {
+    public String addToCartMain(@PathVariable int itemId, AddToCartRequestDto request, HttpSession session) {
         orderService.addToOrder(itemId, request.getAction(), session.getId());
         return "redirect:/";
-    }
-
-    @GetMapping("/items/{itemId}")
-    public String getItem(@PathVariable int itemId, Model model, HttpSession session) {
-        ItemResponseDto itemResponseDto = itemService.getById(itemId, session.getId());
-        model.addAttribute("item", itemResponseDto);
-        return "item";
     }
 }
