@@ -88,6 +88,7 @@ public class OrderService {
                 );
     }
 
+    @Transactional
     public List<ItemResponseDto> getNewBySession(String sessionId) {
         return orderRepository
                 .findBySessionAndStatus(sessionId, OrderStatus.NEW.name())
@@ -106,6 +107,7 @@ public class OrderService {
         return order.getId();
     }
 
+    @Transactional
     public OrderResponseDto getById(int orderId) {
         return orderMapper.toResponseDto(orderRepository.getReferenceById(orderId));
     }

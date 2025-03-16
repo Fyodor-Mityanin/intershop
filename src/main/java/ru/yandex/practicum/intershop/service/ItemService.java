@@ -1,5 +1,6 @@
 package ru.yandex.practicum.intershop.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -44,6 +45,7 @@ public class ItemService {
         return itemResponseDtos;
     }
 
+    @Transactional
     public ItemResponseDto getById(int itemId, String session) {
         Item referenceById = itemRepository.getReferenceById(itemId);
         ItemResponseDto itemResponseDto = itemMapper.toDto(referenceById);

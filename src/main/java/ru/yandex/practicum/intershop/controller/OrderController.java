@@ -21,6 +21,13 @@ public class OrderController {
 
     private final OrderService orderService;
 
+    @GetMapping
+    public String getOrders(Model model, HttpSession session) {
+        List<OrderResponseDto> orders = orderService.getBySession(session.getId());
+        model.addAttribute("orders", orders);
+        return "orders";
+    }
+
     @GetMapping("/{orderId}")
     public String getOrder(@PathVariable int orderId, Model model) {
         OrderResponseDto orderResponseDto = orderService.getById(orderId);
@@ -28,10 +35,4 @@ public class OrderController {
         return "order";
     }
 
-    @GetMapping
-    public String getOrders(Model model, HttpSession session) {
-        List<OrderResponseDto> orders = orderService.getBySession(session.getId());
-        model.addAttribute("orders", orders);
-        return "orders";
-    }
 }
