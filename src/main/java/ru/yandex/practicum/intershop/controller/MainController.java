@@ -4,11 +4,14 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.yandex.practicum.intershop.dto.AddToCartRequestDto;
 import ru.yandex.practicum.intershop.dto.ItemResponseDto;
 import ru.yandex.practicum.intershop.service.ItemService;
+import ru.yandex.practicum.intershop.service.OrderService;
 
 @Controller
 @RequiredArgsConstructor
@@ -17,6 +20,7 @@ import ru.yandex.practicum.intershop.service.ItemService;
 public class MainController {
 
     private final ItemService itemService;
+    private final OrderService orderService;
 
     @GetMapping
     public String index(
@@ -32,9 +36,10 @@ public class MainController {
         return "main";
     }
 
-    @PostMapping("/main/items/{itemId}")
-    public void addToCart(@PathVariable int itemId) {
-        log.info("Add to cart {}", itemId);
+    @PostMapping(value = "/main/items/{itemId}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String addToCart(@PathVariable int itemId, AddToCartRequestDto request, HttpSession session) {
+        orderService.addToOrder(itemId, request.getAction(), session.getId());
+        return "redirect:/";
     }
 
     @GetMapping("/items/{itemId}")

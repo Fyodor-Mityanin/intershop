@@ -2,6 +2,7 @@ package ru.yandex.practicum.intershop.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -9,6 +10,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Setter
 @Entity
 @Table(name = "order_items")
+@NoArgsConstructor
 public class OrderItem {
     @EmbeddedId
     private OrderItemId id;
@@ -25,5 +27,12 @@ public class OrderItem {
 
     @ColumnDefault("0")
     @Column(name = "quantity", nullable = false)
-    private Short quantity;
+    private Integer quantity;
+
+    public OrderItem(Item item, Order order, int quantity) {
+        this.item = item;
+        this.order = order;
+        this.quantity = quantity;
+        this.id = new OrderItemId(item.getId(), order.getId());
+    }
 }

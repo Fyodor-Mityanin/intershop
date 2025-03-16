@@ -37,7 +37,9 @@ public class ItemService {
         Page<ItemResponseDto> itemResponseDtos = items.map(itemMapper::toDto);
         Map<Integer, Integer> orderDto = orderService.findOrderItemsMapBySession(session);
         if (orderDto != null) {
-            itemResponseDtos.getContent().forEach(item -> item.setCount(orderDto.get(item.getId())));
+            itemResponseDtos
+                    .getContent()
+                    .forEach(item -> item.setCount(orderDto.getOrDefault(item.getId(), 0)));
         }
         return itemResponseDtos;
     }

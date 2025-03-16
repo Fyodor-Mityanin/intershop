@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
@@ -21,6 +22,7 @@ public class Order {
     private Integer id;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
+    @CreationTimestamp
     @Column(name = "order_time", nullable = false)
     private LocalDateTime orderTime;
 
@@ -30,6 +32,7 @@ public class Order {
     @Column(name = "session", nullable = false, length = Integer.MAX_VALUE)
     private String session;
 
+    //  NEW, PROCESSING, COMPLETED
     @Column(name = "status", nullable = false, length = Integer.MAX_VALUE)
     private String status;
 
