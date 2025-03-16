@@ -16,7 +16,7 @@ public class OrderItem {
     @MapsId("orderId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "order_id", nullable = false)
-    private ru.yandex.practicum.intershop.entity.Order order;
+    private Order order;
 
     @MapsId("itemId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -26,5 +26,4 @@ public class OrderItem {
     @ColumnDefault("0")
     @Column(name = "quantity", nullable = false)
     private Short quantity;
-
 }

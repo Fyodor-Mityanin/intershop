@@ -7,10 +7,11 @@ import java.math.BigDecimal;
 
 @Data
 @Accessors(chain = true)
-public class ItemDto {
+public class ItemResponseDto {
     private final Integer id;
     private final String title;
     private final BigDecimal price;
     private final String description;
     private final String imgPath;
+    private int count = 0;
 }

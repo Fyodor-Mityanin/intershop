@@ -1,11 +1,11 @@
 package ru.yandex.practicum.intershop.mapper;
 
-import org.mapstruct.Mapper;
-import ru.yandex.practicum.intershop.dto.ItemDto;
+import org.mapstruct.*;
+import ru.yandex.practicum.intershop.dto.ItemResponseDto;
 import ru.yandex.practicum.intershop.entity.Item;
 
 @Mapper
 public interface ItemMapper {
-
-    ItemDto toDto(Item source);
+    @Mapping(target = "count", ignore = true)
+    ItemResponseDto toDto(Item source);
 }

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -22,14 +22,17 @@ public class Order {
 
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "order_time", nullable = false)
-    private Instant orderTime;
+    private LocalDateTime orderTime;
 
     @Column(name = "customer", nullable = false, length = Integer.MAX_VALUE)
     private String customer;
 
+    @Column(name = "session", nullable = false, length = Integer.MAX_VALUE)
+    private String session;
+
     @Column(name = "status", nullable = false, length = Integer.MAX_VALUE)
     private String status;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<OrderItem> orderItems = new LinkedHashSet<>();
 }
