@@ -59,7 +59,7 @@ public class OrderService {
     }
 
     public Order getOrCreateBySession(String session) {
-        Optional<Order> order = orderRepository.findBySession(session);
+        Optional<Order> order = orderRepository.findBySessionAndStatus(session, OrderStatus.NEW.name());
         if (order.isPresent()) {
             return order.get();
         }
@@ -71,7 +71,7 @@ public class OrderService {
     }
 
     public Map<Integer, Integer> findOrderItemsMapBySession(String session) {
-        return orderRepository.findBySession(session)
+        return orderRepository.findBySessionAndStatus(session, OrderStatus.NEW.name())
                 .map(orderMapper::toDto)
                 .map(OrderDto::getOrderItems)
                 .map(this::getOrderItemMap)
@@ -108,5 +108,11 @@ public class OrderService {
 
     public OrderResponseDto getById(int orderId) {
         return orderMapper.toResponseDto(orderRepository.getReferenceById(orderId));
+    }
+
+    public List<OrderResponseDto> getBySession(String session) {
+        return orderRepository.findBySessionAndStatusNot(session, OrderStatus.NEW.name()).stream()
+                .map(orderMapper::toResponseDto)
+                .collect(Collectors.toList());
     }
 }

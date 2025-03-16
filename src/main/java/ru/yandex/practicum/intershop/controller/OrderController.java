@@ -1,5 +1,6 @@
 package ru.yandex.practicum.intershop.controller;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.yandex.practicum.intershop.dto.OrderResponseDto;
 import ru.yandex.practicum.intershop.service.OrderService;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,15 +21,17 @@ public class OrderController {
 
     private final OrderService orderService;
 
-
     @GetMapping("/{orderId}")
     public String getOrder(@PathVariable int orderId, Model model) {
         OrderResponseDto orderResponseDto = orderService.getById(orderId);
-        BigDecimal total = orderResponseDto.getItems().stream()
-                .map(i -> i.getPrice().multiply(BigDecimal.valueOf(i.getCount())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
         model.addAttribute("order", orderResponseDto);
-        model.addAttribute("total", total);
         return "order";
+    }
+
+    @GetMapping
+    public String getOrders(Model model, HttpSession session) {
+        List<OrderResponseDto> orders = orderService.getBySession(session.getId());
+        model.addAttribute("orders", orders);
+        return "orders";
     }
 }
