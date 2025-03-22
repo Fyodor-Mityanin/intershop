@@ -1,14 +1,14 @@
 # Build stage
-FROM maven:3.8.6-openjdk-17 AS build
+FROM maven:3.9.9-amazoncorretto-21-debian AS build
 WORKDIR /app
 
 COPY src ./src
 COPY pom.xml .
 
-RUN mvn clean package # -DskipTests
+RUN mvn clean package -DskipTests
 
-Run stage
-FROM openjdk:21-jdk-alpine
+# Run stage
+FROM openjdk:21
 WORKDIR /app
 
 COPY --from=build /app/target/intershop.jar app.jar
